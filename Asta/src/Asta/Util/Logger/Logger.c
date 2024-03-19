@@ -26,7 +26,7 @@ void log_message( enum LogLevel level, enum LoggerType type, const char *msg, ..
                                           "DEBUG", "INFO", "TRACE" };
     static char *logTypeStrings[ 2 ] = { "CORE", "APP" };
     static char *logLevelColors[ 6 ] = { "\e[1;91m", "\e[0;31m", "\e[1;93m",
-                                         "\e[1;94m", "\e[1;92m", "\e[0;97m" };
+                                         "\e[1;94m", "\e[1;97m", "\e[0;92m" };
 
     static const u16 MAX_LOG_MSG_LENGTH = 16000;
 
@@ -47,4 +47,8 @@ void log_message( enum LogLevel level, enum LoggerType type, const char *msg, ..
 
 void logger_terminate() {
     // TODO: Destroy rotating file logger
+}
+
+void report_assertion_failure( const char *expression, const char *message, const char *file, i32 line ) {
+    log_message( LOG_FATAL, CORE, "Assertion Failure: %s, message: '%s', in file: %s, line: %d\n", expression, message, file, line );
 }
