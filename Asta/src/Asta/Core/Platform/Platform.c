@@ -1,5 +1,6 @@
 #include "Asta/Util/Memory/Memory.h"
 #include "GLFW/glfw3.h"
+#include <glad/glad.h>
 #include "Platform.h"
 #include "../../Util/Assert/Assert.h"
 
@@ -12,7 +13,8 @@ Platform *platform_create( u32 width, u32 height, char *name, MemorySystem *mems
 
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
     glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
-    glfwWindowHint( GLFW_CLIENT_API, GLFW_NO_API );
+    glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+    glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
 
     self->window = glfwCreateWindow( self->width, self->height, name, NULL, NULL );
     AASSERT_MSG( self->window != NULL, "Failed to create glfw window" );

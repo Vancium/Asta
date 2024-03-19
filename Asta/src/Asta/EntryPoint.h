@@ -39,7 +39,7 @@ int main( void ) {
         return -3;
     }
 
-    if ( !engine_run( e ) ) {
+    if ( !engine_run( e, memsys ) ) {
         LOG_CORE_FATAL( "Engine failed to run" );
         return -4;
     }

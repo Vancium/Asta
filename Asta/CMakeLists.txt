@@ -5,6 +5,8 @@ set(ASTA_SOURCES
     src/Asta/Core/Platform/Platform.c
     src/Asta/Util/Logger/Logger.c
     src/Asta/Util/Memory/Memory.c
+
+    src/Asta/Renderer/Renderer.c
 )
 
 #Third party dependencies
@@ -14,21 +16,24 @@ set(ASTA_SOURCES
 add_subdirectory(libs/glfw)
 find_package(glfw)
 
+
 #Cunit
 
 set(LIBRARY_NAME asta)
-
-
-set(EXTERNAL_LIBS
-  glfw
-)
 
 #OPENGL
 
 find_package(OPENGL REQUIRED)
 
 
+# GLAD
 
+add_subdirectory(libs/glad)
+
+set(EXTERNAL_LIBS
+  glfw
+  glad
+)
 
 add_compile_definitions(ADEBUG)
 
