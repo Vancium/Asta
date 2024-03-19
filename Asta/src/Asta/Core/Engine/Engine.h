@@ -1,17 +1,25 @@
 #pragma once
-
 #include "../../Core.h"
+#include "../../GameConfig.h"
+#include "../Platform/Platform.h"
 
 typedef struct EngineConfig {
-    char *name;
     u32 width;
     u32 height;
-} EngineConfig_t;
+    char *name;
+    bool running;
+} EngineConfig;
 
 typedef struct Engine {
-    EngineConfig_t config;
-} Engine_t;
+    Game *game;
+    EngineConfig config;
+    Platform *platform;
+} Engine;
 
-AAPI Engine_t *engine_init( EngineConfig_t engineConfig );
+bool engine_create( Engine *e, Game *game, MemorySystem *memsys );
 
-AAPI void engine_terminate( Engine_t *engine );
+bool init_glfw();
+
+bool engine_run( Engine *e );
+
+bool engine_destroy( Engine *e, MemorySystem *memsys );

@@ -2,11 +2,9 @@
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "") # works
 set(ASTA_SOURCES 
     src/Asta/Core/Engine/Engine.c
-    src/Asta/Core/Window/Window.c
-    src/Asta/Core/Events/Event.c
+    src/Asta/Core/Platform/Platform.c
     src/Asta/Util/Logger/Logger.c
     src/Asta/Util/Memory/Memory.c
-    src/Asta/Containers/Vector/Vector.c
 )
 
 #Third party dependencies
@@ -30,6 +28,9 @@ set(EXTERNAL_LIBS
 find_package(OPENGL REQUIRED)
 
 
+
+
+add_compile_definitions(ADEBUG)
 
 
 

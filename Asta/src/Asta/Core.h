@@ -2,9 +2,11 @@
 
 #include "Util/Logger/Logger.h"
 #include "Util/Memory/Memory.h"
+#include "Util/Assert/Assert.h"
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 typedef uint8_t u8;
 typedef uint16_t u16;

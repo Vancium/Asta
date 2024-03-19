@@ -1,10 +1,5 @@
 
 
-#Test executable
+#test executable
 
-add_executable(ctest test.c)
-
-add_test(
-    NAME ctest
-    COMMAND $<TARGET_FILE:ctest>
-)
+add_subdirectory(Memory)

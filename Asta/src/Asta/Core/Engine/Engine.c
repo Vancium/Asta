@@ -1,22 +1,55 @@
-#include <stdlib.h>
 #include "Engine.h"
-#include "Asta/Core/Window/Window.h"
-#include "Asta/Global.h"
-#include "Asta/Util/Memory/Memory.h"
+#include "Asta/Core/Platform/Platform.h"
+#include <GLFW/glfw3.h>
+#include <stdbool.h>
 
-Engine_t *engine_init( EngineConfig_t engineConfig ) {
+bool init_glfw() {
 
-    memory_init();
-    Engine_t *engine = allocate_memory( sizeof( Engine_t ), MEMORY_TAG_APPLICATION );
-    engine->config = engineConfig;
+    if ( !glfwInit() ) {
+        // TODO: check for failure
+        LOG_CORE_FATAL( "Could not initialize GLFW" );
+        return false;
+    }
 
-    LOG_CORE_INFO( "Engine Created" );
-    return engine;
+    return true;
 }
 
-void engine_terminate( Engine_t *engine ) {
-    LOG_CORE_INFO( "Engine Destroyed" );
-    get_memory_usage();
-    memory_shutdown();
-    free_memory( engine, sizeof( Engine_t ), MEMORY_TAG_APPLICATION );
+bool engine_create( Engine *e, Game *game, MemorySystem *memsys ) {
+    // TODO: Get config info from user, mainly window size and window name
+    e->game = game;
+    e->config.name = "Asta";
+    e->config.width = 1280;
+    e->config.height = 720;
+    e->config.running = true;
+
+    if ( !init_glfw() ) {
+        LOG_CORE_FATAL( "Could not initialze glfw" );
+        return false;
+    }
+
+    e->platform = platform_create( e->config.width, e->config.height, e->config.name, memsys );
+
+    return true;
+}
+
+bool engine_run( Engine *e ) {
+    LOG_CORE_INFO( "Running" );
+
+    while ( e->config.running ) {
+        while ( !glfwWindowShouldClose( e->platform->window ) ) {
+            glfwPollEvents();
+        }
+        e->config.running = false;
+    }
+
+    return true;
+}
+
+bool engine_destroy( Engine *e, MemorySystem *memsys ) {
+
+    platform_destroy( e->platform, memsys );
+
+    memory_free( e, sizeof( Engine ), MEMORY_TAG_ENGINE, memsys );
+
+    return true;
 }
