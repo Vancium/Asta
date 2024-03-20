@@ -1,13 +1,16 @@
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "") # works
 set(ASTA_SOURCES 
-    src/Asta/Core/Engine/Engine.c
-    src/Asta/Core/Platform/Platform.c
+    src/Asta/Engine/Engine.c
+    src/Asta/Platform/Platform.c
+    src/Asta/Renderer/Renderer.c
+    
     src/Asta/Util/Logger/Logger.c
     src/Asta/Util/Memory/Memory.c
 
-    src/Asta/Renderer/Renderer.c
+    src/Asta/Containers/dyn_array.c
 )
+
 
 #Third party dependencies
 
